@@ -3,6 +3,7 @@ import { AuthContext } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Dashboad from "./pages/Dashboard";
 import Error from "./pages/Error";
+import OAuthGithub from "./pages/OAuthGithub";
 
 const App = () => {
   return (
@@ -11,6 +12,9 @@ const App = () => {
         <Switch>
           <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/github">
+            <OAuthGithub />
           </Route>
           <Route exact path="/">
             <Dashboad />

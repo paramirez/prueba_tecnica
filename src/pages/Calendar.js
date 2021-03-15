@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import { Calendar } from "../context/CalendarContext";
 import * as gapi from "../clients/gapi";
+import { List, Typography, Divider } from "antd";
 
 const CalendarPage = () => {
   const { user, getCalendar, suscribeCalendar } = useContext(Calendar);
@@ -23,19 +24,28 @@ const CalendarPage = () => {
     <li key={index}>
       {event.summary}
       {dayAndTime(event.start.dateTime)}
-      <button onClick={() => cancelEvent(event.id)}>remove</button>
     </li>
   ));
 
   return (
     <div>
-      <hr />
       {user && user._extraData && !user._extraData.calendar ? (
         <button onClick={suscribeCalendar}>Vincular google calendar</button>
       ) : (
         <div>
-          <h3>Eventos para el siguiente mes</h3>
-          {events.length ? listEvents : "No hay eventos para el siguiente mes"}
+          <Divider orientation="left">Eventos para el siguiente mes</Divider>
+          <List
+            size="large"
+            bordered
+            dataSource={events}
+            renderItem={(item) => (
+              <List.Item>
+                {item.summary}
+
+                <button onClick={() => cancelEvent(item.id)}>remove</button>
+              </List.Item>
+            )}
+          />
         </div>
       )}
     </div>
